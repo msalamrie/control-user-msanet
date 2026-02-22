@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="logo-msanet.png">
+  <title>msanet | kontrol pembayaran user</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { darkbg: "#0f172a" }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-darkbg text-white transition-colors duration-300">
+
+<div id="mainContent" class="app-container">
+
+  <!-- HEADER -->
+  <header class="app-header">
+
+    <div class="header-left">
+      <img src="logo-msanet.png" alt="Logo" class="app-logo">
+      <h1 class="app-title">
+        KONTROL PEMBAYARAN USER
+      </h1>
+    </div>
+
+    <div class="header-right">
+
+      <div class="filter-group">
+        <input type="number" id="filterTahun"
+          class="filter-input" />
+        <select id="filterBulan"
+          class="filter-input"></select>
+      </div>
+
+      <label class="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="themeToggle" class="sr-only peer">
+
+        <div class="w-12 h-6 bg-gray-400 rounded-full 
+                    peer-checked:bg-yellow-400 
+                    transition-colors duration-300">
+
+          <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full
+                      transition-transform duration-300
+                      peer-checked:translate-x-6">
+          </div>
+
+        </div>
+      </label>
+
+    </div>
+
+  </header>
+
+  <!-- STATISTIK -->
+  <section class="stat-grid">
+
+    <div class="stat-card">
+      <p>TOTAL USER</p>
+      <h2 id="totalUser">0</h2>
+    </div>
+
+    <div class="stat-card">
+      <p>SUDAH BAYAR</p>
+      <h2 id="totalLunas">0</h2>
+    </div>
+
+    <div class="stat-card">
+      <p>BELUM BAYAR</p>
+      <h2 id="totalBelum">0</h2>
+    </div>
+
+  </section>
+
+  <!-- INPUT -->
+  <section class="input-section">
+    <input id="nama"
+      class="input-user"
+      placeholder="Masukkan nama user..." />
+
+    <button onclick="tambahUser()" class="btn-add">
+      Tambah
+    </button>
+  </section>
+
+  <!-- TABLE -->
+  <section class="table-section">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<!-- MODAL -->
+<div id="deleteModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+
+  <div id="modalBox" class="modal-box">
+    <h2>Konfirmasi Hapus</h2>
+    <p>
+      Yakin mau hapus user 
+      <span id="userName"></span>?
+    </p>
+
+    <div class="modal-actions">
+      <button onclick="closeDeleteModal()" class="btn-cancel">
+        Batal
+      </button>
+      <button onclick="confirmDelete()" class="btn-danger">
+        Hapus
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
