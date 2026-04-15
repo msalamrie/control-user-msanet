@@ -79,8 +79,30 @@ function confirmDelete() {
   render();
 }
 
-function simpan() {
+let lastSend = 0;
+
+async function simpan() {
   localStorage.setItem("users", JSON.stringify(users));
+
+  // SIMPAN KE FIREBASE (ANTI DUPLIKAT)
+  try {
+    for (let u of users) {
+      await fb.setDoc(
+        fb.doc(db, "users", String(u.id)),
+        u
+      );
+    }
+  } catch (e) {
+    console.log("Firebase error:", e);
+  }
+
+  // TELEGRAM (ANTI SPAM)
+  const now = Date.now();
+  if (now - lastSend > 0) {
+    const bulan = getSelectedMonth();
+    generateLaporanTelegram(users, bulan);
+    lastSend = now;
+  }
 }
 
 /* ================= RENDER ================= */
